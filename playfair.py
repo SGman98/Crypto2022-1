@@ -3,7 +3,7 @@ def fix_text(text: str) -> str:
     """
     Fix the text implementing the playfair cipher rules.
 
-    Remove spaces, replace j by i and remove duplicates.
+    Remove spaces, replace j by i and remove spaces.
     If pairs of letters are the same, add an X in between.
     If length of the text is odd, add an X at the end.
 
