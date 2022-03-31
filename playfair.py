@@ -3,9 +3,9 @@ def normalize(text: str) -> str:
     """
     Normalize the text implementing the rules of the playfair cipher.
 
-    Remove spaces, replace j by i and remove spaces.
-    If pairs of letters are the same, add an X in between.
-    If length of the text is odd, add an X at the end.
+    Remove spaces, replace j by i.
+    If a pair of letters is the same, add an X in between.
+    If the length of the text is odd, add an X at the end.
 
     Parameters:
         text (str): Raw text.
@@ -20,8 +20,8 @@ def normalize(text: str) -> str:
     i = 0
     # Loop through the text in pairs
     while i < len(text) - 1:
-        # If the letters in the par are the same, add an X
-        if text[i] == text[i + 1]:
+        # If the letters in the pair are the same, add an X
+        if text[i] == text[i + 1] and text[i] != 'X':
             text = text[:i + 1] + 'X' + text[i + 1:]
 
         i += 2
@@ -45,7 +45,7 @@ def gen_matrix(key: str) -> list:
 
     """
     # English alphabet without j
-    alphabet = 'ABCDEFGHIKLMNOPQRSTUVWXYZ'
+    alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
 
     # Fix the key replacing j by i
     key = key.upper().replace('J', 'I')
@@ -98,9 +98,9 @@ def playfair(text: str, key: str, mode: str) -> str:
         str: Encrypted or decrypted text.
 
     """
-    # Make sure mode is 'e' or 'd'
-    if mode not in ['e', 'd']:
-        raise ValueError('Mode must be \'e\' or \'d\'')
+    assert text.replace(' ', '').isalpha(), "Text must be alphabetic"
+    assert key.replace(' ', '').isalpha(), "Key must be alphabetic"
+    assert mode in ['e', 'd'], "Mode must be 'e' or 'd'"
 
     # Normalize the text with the rules of the playfair cipher
     text = normalize(text)
@@ -115,6 +115,11 @@ def playfair(text: str, key: str, mode: str) -> str:
 
     # Loop through the text in pairs
     for l1, l2 in zip(text[::2], text[1::2]):
+        # If both letters are the same
+        if l1 == l2:
+            result = l1 + l2
+            continue
+
         # Find the position of each letter
         row1, col1 = find_pos(l1, key)  # First letter
         row2, col2 = find_pos(l2, key)  # Second letter
@@ -136,5 +141,5 @@ def playfair(text: str, key: str, mode: str) -> str:
         result += key[row2][col1]
 
     # Add spaces between the pairs
-    result = ' '.join(result[i:i + 2] for i in range(0, len(result), 2))
+    result = ' '.join(l1 + l2 for l1, l2 in zip(result[::2], result[1::2]))
     return result
