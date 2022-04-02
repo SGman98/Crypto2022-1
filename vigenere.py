@@ -13,13 +13,14 @@ def vigenere(text: str, key: str, t: int, mode: str) -> str:
         str: Encrypted or decrypted text
 
     """
-    # Make sure mode is 'e' or 'd'
-    if mode not in ['e', 'd']:
-        raise ValueError('Mode must be \'e\' or \'d\'')
+    assert mode in ['e', 'd'], "Mode must be 'e' or 'd'"
 
     # Normalize text and key
     text = text.upper().replace(' ', '')
     key = key.upper().replace(' ', '')
+
+    assert text.isalpha(), "Text must be alphabetic"
+    assert key.isalpha(), "Key must be alphabetic"
 
     # Transform the mode to 1 or -1
     mode = 1 if mode == 'e' else -1
