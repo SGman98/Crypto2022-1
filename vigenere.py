@@ -1,12 +1,11 @@
 
-def vigenere(text: str, key: str, t: int, mode: str) -> str:
+def vigenere(text: str, key: str, mode: str) -> str:
     """
     Encrypt or decrypt text using Vigenere cipher.
 
     Parameters:
         text (str): Text to encrypt or decrypt
         key (str): Key to use for encryption or decryption
-        t (str): Value of separator 
         mode (str): (e)ncrypt or (d)ecrypt
 
     Returns:
@@ -39,5 +38,5 @@ def vigenere(text: str, key: str, t: int, mode: str) -> str:
         result += chr(res_val)
 
     # Add spaces every t characters
-    result = ' '.join([result[i:i + t] for i in range(0, len(result), t)])
+    result = ' '.join([result[i:i + 5] for i in range(0, len(result), 5)])
     return result
