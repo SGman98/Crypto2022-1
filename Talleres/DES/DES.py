@@ -44,8 +44,6 @@ def decrypt(encrypted_image, key):
 
 
 def main():
-    key = b'My 8 key'
-
     while True:
         encrypt_or_decrypt = input(
             'Enter (e)ncrypt (d)ecrypt (f)ull or (q)uit: ')
@@ -58,6 +56,8 @@ def main():
             return
 
         image_path = input('Enter image path: ')
+        key = input('Enter key 8 characters (12345678): ')
+        key = bytes(key or '12345678', 'utf-8')
 
         if encrypt_or_decrypt in ['e', 'encrypt', 'f', 'full']:
             encrypt_image, image_path = encrypt(image_path, key)
