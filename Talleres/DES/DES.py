@@ -46,7 +46,7 @@ def decrypt(encrypted_image, key):
 def main():
     while True:
         encrypt_or_decrypt = input(
-            'Enter (e)ncrypt (d)ecrypt (f)ull or (q)uit: ')
+            '\nEnter (e)ncrypt (d)ecrypt (f)ull or (q)uit: ')
 
         if encrypt_or_decrypt not in ['e', 'encrypt', 'd', 'decrypt', 'f', 'full', 'q', 'quit']:
             print('Invalid input')
@@ -60,14 +60,16 @@ def main():
         key = bytes(key or '12345678', 'utf-8')
 
         if encrypt_or_decrypt in ['e', 'encrypt', 'f', 'full']:
+            print('Encrypting...')
             encrypt_image, image_path = encrypt(image_path, key)
             print(f'Encrypted: {encrypt_image[:20]}...{encrypt_image[-20:]}')
-            print(f'Saved to: {image_path}')
+            print(f'Saved to: {image_path}\n')
 
         if encrypt_or_decrypt in ['d', 'decrypt', 'f', 'full']:
+            print('Decrypting...')
             decrypt_image, image_path = decrypt(image_path, key)
             print(f'Decrypted: {decrypt_image[:20]}...{decrypt_image[-20:]}')
-            print(f'Saved to: {image_path}')
+            print(f'Saved to: {image_path}\n')
 
 
 if __name__ == '__main__':
