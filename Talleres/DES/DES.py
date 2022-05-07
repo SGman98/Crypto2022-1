@@ -50,7 +50,7 @@ def main():
 
         if encrypt_or_decrypt not in ['e', 'encrypt', 'd', 'decrypt', 'f', 'full', 'q', 'quit']:
             print('Invalid input')
-            return
+            continue
 
         if encrypt_or_decrypt in ['q', 'quit']:
             return
